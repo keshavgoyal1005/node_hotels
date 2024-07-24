@@ -8,10 +8,12 @@ require('dotenv').config();
 const mongoURL = process.env.MONGO_URL;
 
 
-mongoose.connect(mongoURL, { 
-    // useNewUrlParser: true, 
-    // useUnifiedTopology: true ,
-    serverSelectionTimeoutMS: 5000 
+mongoose.connect(mongoURL, {
+    useNewUrlParser: true, // default as of mongoose 5.7.0
+    useUnifiedTopology: true, // default as of mongoose 5.7.0
+    ssl: true,
+    sslCA: fs.readFileSync('/path/to/ca-certificate.crt'), // CA certificate if using self-signed certificate
+    serverSelectionTimeoutMS: 5000 // Timeout after 5 seconds if server selection fails
 });
 
 const db = mongoose.connection;
