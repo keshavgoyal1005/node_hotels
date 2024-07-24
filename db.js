@@ -4,17 +4,28 @@ require('dotenv').config();
 // Define the mongodb connection URL
 
 // const mongoURL = 'mongodb://localhost:27017/hotels';
-const mongoURL = 'mongodb+srv://goyalkeshav1005:keshav1005@cluster0.nytnogd.mongodb.net/';
-// const mongoURL = process.env.MONGO_URL;
+// const mongoURL = 'mongodb+srv://goyalkeshav1005:keshav1005@cluster0.nytnogd.mongodb.net/';
+const mongoURL = process.env.MONGO_URL;
+
+
+if (!mongoURL) {
+    console.error('MONGO_URL environment variable is not set.');
+    process.exit(1);
+}
 
 
 mongoose.connect(mongoURL, {
-    useNewUrlParser: true, // default as of mongoose 5.7.0
-    useUnifiedTopology: true, // default as of mongoose 5.7.0
-    // ssl: true,
-    // sslCA: fs.readFileSync('/path/to/ca-certificate.crt'), // CA certificate if using self-signed certificate
-    serverSelectionTimeoutMS: 5000 // Timeout after 5 seconds if server selection fails
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
+.then(() => {
+    console.log('Connected to MongoDB Atlas successfully.');
+})
+.catch((error) => {
+    console.error('Error connecting to MongoDB Atlas:', error);
 });
+
+
 
 const db = mongoose.connection;
 
