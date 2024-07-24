@@ -9,8 +9,8 @@ const mongoURL = process.env.MONGO_URL;
 
 
 mongoose.connect(mongoURL, { 
-    useNewUrlParser: true, 
-    useUnifiedTopology: true ,
+    // useNewUrlParser: true, 
+    // useUnifiedTopology: true ,
     serverSelectionTimeoutMS: 5000 
 });
 
